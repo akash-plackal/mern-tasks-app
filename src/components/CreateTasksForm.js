@@ -49,7 +49,7 @@ const CreateTasksForm = ({ setIsOpen, section }) => {
       console.log(value, section);
 
       try {
-        axios.post("https://tasks-app-mern.herokuapp.com/addTasks", {
+        axios.post("https://tasks-app-mern.herokuapp.com/addTask", {
           topic: value.topic,
           priority: value.priority,
           section: section,
