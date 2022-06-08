@@ -2,10 +2,10 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Globalcontext } from "../context/GlobalState";
 
-const CreateTasksForm = ({section }) => {
-  const { setIsOpen , editData, value, setValue} = useContext(Globalcontext);
+const CreateTasksForm = ({ section }) => {
+  const { setIsOpen, editData, value, setValue } = useContext(Globalcontext);
   const [errMsg, setErrMsg] = useState("");
-  
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -18,39 +18,35 @@ const CreateTasksForm = ({section }) => {
         priority: " ",
         content: "",
       });
-      
-    if(editData) {
-      try {
-        axios.put("https://tasks-app-mern.herokuapp.com/updateTask", {
-          topic: value.topic,
-          priority: value.priority,
-          section: section,
-          completed: false,
-          content: value.content,
-        });
-      } catch (error) {
-        console.log(error);
-      } 
-    } else {
 
-      try {
-        axios.post("https://tasks-app-mern.herokuapp.com/addTask", {
-          topic: value.topic,
-          priority: value.priority,
-          section: section,
-          completed: false,
-          content: value.content,
-        });
-      } catch (error) {
-        console.log(error);
+      if (editData) {
+        try {
+          axios.put("https://tasks-app-mern.herokuapp.com/updateTask", {
+            topic: value.topic,
+            priority: value.priority,
+            section: section,
+            completed: false,
+            content: value.content,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          axios.post("https://tasks-app-mern.herokuapp.com/addTask", {
+            topic: value.topic,
+            priority: value.priority,
+            section: section,
+            completed: false,
+            content: value.content,
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
-
     }
   };
 
-
-  
   return (
     <form onSubmit={submitHandler}>
       <div className="bg-white px-4 pt-5 pb-4 sm:p-6 ">

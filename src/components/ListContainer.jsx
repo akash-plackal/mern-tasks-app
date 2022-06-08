@@ -4,11 +4,11 @@ import { BiRadioCircle } from "react-icons/bi";
 import { BsCheckLg } from "react-icons/bs";
 
 const ListContainer = ({ section }) => {
-  const {data , setIsOpen , setEditData , handleEditTask } = useContext(Globalcontext);
+  const { data, setIsOpen, handleEditTask } = useContext(Globalcontext);
 
   const filteredArr = data.filter((item) => item.section === section);
 
-  const  taskClick = (id) => setIsOpen(true) & handleEditTask(id) 
+  const taskClick = (id) => setIsOpen(true) & handleEditTask(id);
 
   return (
     <div>
@@ -17,7 +17,8 @@ const ListContainer = ({ section }) => {
           key={ind}
           className={`border-2 border-t-0 h-auto flex ${
             item.completed ? " bg-green-50" : " "
-          }` } onClick={() => taskClick(item._id)}
+          }`}
+          onClick={() => taskClick(item._id)}
         >
           <div
             className={`w-20 border-r-2 text-xl flex items-center justify-center 
@@ -34,7 +35,7 @@ const ListContainer = ({ section }) => {
             )}
           </div>
           <div className="p-8 flex items-center ">
-            <div className=" w-56 max-h-28 font-roboto line-clamp-4" >
+            <div className=" w-56 max-h-28 font-roboto line-clamp-4">
               <p className="text-xs text-stone-500">{item.topic}</p>
               <h3
                 className={`text-lg font-medium ${
@@ -50,6 +51,5 @@ const ListContainer = ({ section }) => {
     </div>
   );
 };
-
 
 export default ListContainer;
