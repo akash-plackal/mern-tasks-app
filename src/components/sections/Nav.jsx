@@ -1,4 +1,4 @@
-import React, { useState , useContext} from "react";
+import React, { useContext } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { BsPlusLg } from "react-icons/bs";
@@ -9,7 +9,7 @@ import { Globalcontext } from "../../context/GlobalState";
 const Nav = ({ section }) => {
   const navigate = useNavigate();
 
-  const { isOpen , setIsOpen} = useContext(Globalcontext)
+  const { isOpen, setIsOpen } = useContext(Globalcontext);
 
   return (
     <>
@@ -25,7 +25,7 @@ const Nav = ({ section }) => {
           <BsPlusLg />
         </button>
       </div>
-      <AddItemModal  section={section}  />
+      <AddItemModal section={section} />
     </>
   );
 };
