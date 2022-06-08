@@ -4,9 +4,11 @@ import { BiRadioCircle } from "react-icons/bi";
 import { BsCheckLg } from "react-icons/bs";
 
 const ListContainer = ({ section }) => {
-  const arr = useContext(Globalcontext);
+  const {data , setIsOpen , setEditData , handleEditTask } = useContext(Globalcontext);
 
-  const filteredArr = arr.filter((item) => item.section === section);
+  const filteredArr = data.filter((item) => item.section === section);
+
+  const  taskClick = (id) => setIsOpen(true) & handleEditTask(id) 
 
   return (
     <div>
@@ -15,18 +17,8 @@ const ListContainer = ({ section }) => {
           key={ind}
           className={`border-2 border-t-0 h-auto flex ${
             item.completed ? " bg-green-50" : " "
-          }`}
+          }` } onClick={() => taskClick(item._id)}
         >
-          {/* {item.completed ? (
-            <div className=" w-20 border-r-2 text-xl flex items-center justify-center text-emerald-400 bg-green-50">
-              <BsCheckLg />
-            </div>
-          ) : (
-            <div className=" w-20 border-r-2 text-3xl flex items-center justify-center text-yellow-400 bg-gray-50">
-             
-            </div>
-          )} */}
-
           <div
             className={`w-20 border-r-2 text-xl flex items-center justify-center 
           ${
@@ -35,11 +27,14 @@ const ListContainer = ({ section }) => {
               : "text-yellow-400 bg-gray-50"
           }`}
           >
-            {item.completed ? <BsCheckLg /> : <BiRadioCircle />}
+            {item.completed ? (
+              <BsCheckLg />
+            ) : (
+              <BiRadioCircle className="text-3xl" />
+            )}
           </div>
-
           <div className="p-8 flex items-center ">
-            <div className=" w-56 max-h-28 font-roboto line-clamp-4">
+            <div className=" w-56 max-h-28 font-roboto line-clamp-4" >
               <p className="text-xs text-stone-500">{item.topic}</p>
               <h3
                 className={`text-lg font-medium ${
@@ -55,5 +50,6 @@ const ListContainer = ({ section }) => {
     </div>
   );
 };
+
 
 export default ListContainer;

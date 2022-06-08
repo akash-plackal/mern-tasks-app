@@ -1,43 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { Globalcontext } from "../context/GlobalState";
 
-const CreateTasksForm = ({ setIsOpen, section }) => {
-  const [value, setValue] = useState({
-    topic: "",
-    priority: " ",
-    content: "",
-  });
-
+const CreateTasksForm = ({section }) => {
+  const { setIsOpen , editData, value, setValue} = useContext(Globalcontext);
   const [errMsg, setErrMsg] = useState("");
-
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-
-  //   if (value.priority === " " || "") {
-  //     // console.log(typeof value.priority, value.priority);
-  //     return setErrMsg("priority not selected");
-  //   } else if (value.topic === " " || "") {
-  //     return setErrMsg("topic field cannot be empty");
-  //   } else if (value.topic === " " || "") {
-  //     return setErrMsg("note field cannot be empty");
-  //   } else {
-  //     setValue({
-  //       topic: "",
-  //       priority: "",
-  //       content: "",
-  //     });
-
-  //     setErrMsg("");
-  //     console.log(value);
-  //     console.log("done");
-  //   }
-  // };
-
+  
   const submitHandler = (e) => {
     e.preventDefault();
 
     if (value.priority === " ") {
-      setErrMsg("select a priority");
+      setErrMsg("select a priority from the dropdown");
     } else {
       setErrMsg("");
       setValue({
@@ -45,8 +18,20 @@ const CreateTasksForm = ({ setIsOpen, section }) => {
         priority: " ",
         content: "",
       });
-
-      console.log(value, section);
+      
+    if(editData) {
+      try {
+        axios.put("https://tasks-app-mern.herokuapp.com/updateTask", {
+          topic: value.topic,
+          priority: value.priority,
+          section: section,
+          completed: false,
+          content: value.content,
+        });
+      } catch (error) {
+        console.log(error);
+      } 
+    } else {
 
       try {
         axios.post("https://tasks-app-mern.herokuapp.com/addTask", {
@@ -60,11 +45,15 @@ const CreateTasksForm = ({ setIsOpen, section }) => {
         console.log(error);
       }
     }
+
+    }
   };
 
+
+  
   return (
     <form onSubmit={submitHandler}>
-      <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+      <div className="bg-white px-4 pt-5 pb-4 sm:p-6 ">
         <input
           required
           type="text"
@@ -75,7 +64,9 @@ const CreateTasksForm = ({ setIsOpen, section }) => {
         />
 
         <select
-          className="w-full border-2 rounded p-2 mt-2 mb-3 bg-white text-gray-400 "
+          className={`w-full border-2 rounded p-2 mt-2 mb-3 bg-white text-gray-400  ${
+            errMsg ? "border-red-700" : ""
+          } `}
           placeholder="select"
           required
           name="priority"
@@ -93,19 +84,17 @@ const CreateTasksForm = ({ setIsOpen, section }) => {
             low
           </option>
         </select>
-        {/* {console.log(value)} */}
 
         <textarea
           required
           rows="8"
-          className="w-full border-2 rounded  p-2 mt-2 mb-3"
+          className="w-full border-2 rounded  p-2 mt-2 mb-1"
           placeholder="note ..."
           value={value.content}
           onChange={(e) => setValue({ ...value, content: e.target.value })}
         ></textarea>
+        <p className="text-sm text-red-700 w-full pl-24 ">{errMsg}</p>
       </div>
-
-      <p className="text-sm text-red-700 w-full pl-40 py-1">{errMsg}</p>
 
       <div className="bg-gray-200 px-4 py-3 text-right">
         <button

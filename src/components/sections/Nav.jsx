@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { BsPlusLg } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import AddItemModal from "../AddItemModal";
+import { Globalcontext } from "../../context/GlobalState";
 
 const Nav = ({ section }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const { isOpen , setIsOpen} = useContext(Globalcontext)
 
   return (
     <>
       <nav className="border-b-2 flex justify-between align-middle p-3 h-14 text-3xl font-medium font-roboto">
-        <BsArrowLeft onClick={() => navigate(-1)} />
+        <BsArrowLeft onClick={() => navigate("/")} />
         <h3 className="text-lg capitalize ">{section} list</h3>
         <IoPersonCircleOutline />
       </nav>
@@ -23,7 +25,7 @@ const Nav = ({ section }) => {
           <BsPlusLg />
         </button>
       </div>
-      <AddItemModal isOpen={isOpen} section={section} setIsOpen={setIsOpen} />
+      <AddItemModal  section={section}  />
     </>
   );
 };

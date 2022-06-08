@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import CreateTasksForm from "./CreateTasksForm";
+import { Globalcontext } from "../context/GlobalState";
 
-const AddItemModal = ({ isOpen, setIsOpen, section }) => {
+const AddItemModal = ({ section }) => {
+  
+  const { isOpen } = useContext(Globalcontext)
+
   return (
     <div>
       <div
@@ -22,7 +26,7 @@ const AddItemModal = ({ isOpen, setIsOpen, section }) => {
             aria-modal="true"
             aria-labelledby="modal-headline"
           >
-            <CreateTasksForm section={section} setIsOpen={setIsOpen} />
+            <CreateTasksForm section={section} />
           </div>
         </div>
       </div>
