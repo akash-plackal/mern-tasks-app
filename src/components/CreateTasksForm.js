@@ -3,7 +3,8 @@ import axios from "axios";
 import { Globalcontext } from "../context/GlobalState";
 
 const CreateTasksForm = ({ section }) => {
-  const { setIsOpen, editData, value, setValue } = useContext(Globalcontext);
+  const { setEditData, setIsOpen, editData, value, setValue } =
+    useContext(Globalcontext);
   const [errMsg, setErrMsg] = useState("");
 
   const submitHandler = (e) => {
@@ -22,6 +23,7 @@ const CreateTasksForm = ({ section }) => {
       if (editData) {
         try {
           axios.put("https://tasks-app-mern.herokuapp.com/updateTask", {
+            id: value.id,
             topic: value.topic,
             priority: value.priority,
             section: section,
@@ -47,6 +49,7 @@ const CreateTasksForm = ({ section }) => {
     }
   };
 
+  console.log(editData);
   return (
     <form onSubmit={submitHandler}>
       <div className="bg-white px-4 pt-5 pb-4 sm:p-6 ">
@@ -95,7 +98,7 @@ const CreateTasksForm = ({ section }) => {
       <div className="bg-gray-200 px-4 py-3 text-right">
         <button
           type="button"
-          onClick={() => setIsOpen(false)}
+          onClick={() => setIsOpen(false) & setEditData(false)}
           className="py-2 px-5 border-2 border-rose-500 text-rose-500 rounded  mr-2"
         >
           Cancel
