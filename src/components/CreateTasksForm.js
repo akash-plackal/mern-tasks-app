@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Globalcontext } from "../context/GlobalState";
+import { AiOutlineDelete } from "react-icons/ai";
 
 const CreateTasksForm = ({ section }) => {
   const { setEditData, setIsOpen, editData, value, setValue } =
@@ -49,7 +50,6 @@ const CreateTasksForm = ({ section }) => {
     }
   };
 
-  console.log(editData);
   return (
     <form onSubmit={submitHandler}>
       <div className="bg-white px-4 pt-5 pb-4 sm:p-6 ">
@@ -95,20 +95,33 @@ const CreateTasksForm = ({ section }) => {
         <p className="text-sm text-red-700 w-full pl-24 ">{errMsg}</p>
       </div>
 
-      <div className="bg-gray-200 px-4 py-3 text-right">
+      <div className="bg-gray-200 flex justify-between px-3 py-3 text-right border-2">
         <button
           type="button"
-          onClick={() => setIsOpen(false) & setEditData(false)}
-          className="py-2 px-5 border-2 border-rose-500 text-rose-500 rounded  mr-2"
+          onClick={() => console.log("clicked")}
+          className={`py-2 px-1 text-3xl hover:text-rose-500 ${
+            editData ? "text-black" : "text-gray-200"
+          }`}
+          disabled={!editData}
         >
-          Cancel
+          <AiOutlineDelete className="" />
         </button>
-        <button
-          type="submit"
-          className="py-2 px-5 border-2 border-rose-500 bg-rose-500  text-white rounded hover:bg-rose-600 mr-2"
-        >
-          Create
-        </button>
+
+        <div>
+          <button
+            type="button"
+            onClick={() => setIsOpen(false) & setEditData(false)}
+            className="py-2 px-5 border-2 border-lime-500  text-lime-500 rounded  mr-2"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="py-2 px-5 border-2 border-lime-500 bg-lime-500  text-white rounded hover:bg-lime-600 mr-2"
+          >
+            {editData ? "Update" : "Create"}
+          </button>
+        </div>
       </div>
     </form>
   );
