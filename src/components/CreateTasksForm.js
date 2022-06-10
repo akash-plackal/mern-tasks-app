@@ -50,6 +50,22 @@ const CreateTasksForm = ({ section }) => {
     }
   };
 
+  const cancelHandle = () => {
+    setIsOpen(false);
+    setEditData(false);
+    setValue({
+      topic: "",
+      priority: " ",
+      content: "",
+    });
+  };
+
+  const deleteHandler = (id) => {
+    axios.delete(`https://tasks-app-mern.herokuapp.com/deleteTask/${id}`);
+    setIsOpen(false);
+    setEditData(false);
+  };
+
   return (
     <form onSubmit={submitHandler}>
       <div className="bg-white px-4 pt-5 pb-4 sm:p-6 ">
@@ -98,7 +114,7 @@ const CreateTasksForm = ({ section }) => {
       <div className="bg-gray-200 flex justify-between px-3 py-3 text-right border-2">
         <button
           type="button"
-          onClick={() => console.log("clicked")}
+          onClick={() => deleteHandler(value.id)}
           className={`py-2 px-1 text-3xl hover:text-rose-500 ${
             editData ? "text-black" : "text-gray-200"
           }`}
@@ -110,7 +126,7 @@ const CreateTasksForm = ({ section }) => {
         <div>
           <button
             type="button"
-            onClick={() => setIsOpen(false) & setEditData(false)}
+            onClick={() => cancelHandle()}
             className="py-2 px-5 border-2 border-lime-500  text-lime-500 rounded  mr-2"
           >
             Cancel

@@ -20,7 +20,7 @@ export const GlobalProvider = ({ children }) => {
     if (arr[0]) {
       setValue({
         ...value,
-        id: arr[0],
+        id: arr[0]._id,
         topic: arr[0].topic,
         priority: arr[0].priority,
         content: arr[0].content,
