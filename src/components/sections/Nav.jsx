@@ -9,7 +9,7 @@ import { Globalcontext } from "../../context/GlobalState";
 const Nav = ({ section }) => {
   const navigate = useNavigate();
 
-  const { isOpen, setIsOpen } = useContext(Globalcontext);
+  const { isOpen, setIsOpen, setValue } = useContext(Globalcontext);
 
   return (
     <>
@@ -21,7 +21,10 @@ const Nav = ({ section }) => {
 
       <div className="p-5 border-b-2 flex justify-between text-stone-500">
         <h1 className="font-roboto text-2xl  font-medium">Add events</h1>
-        <button className="text-2xl" onClick={() => setIsOpen(!isOpen)}>
+        <button
+          className="text-2xl"
+          onClick={() => setIsOpen(!isOpen) && setValue({})}
+        >
           <BsPlusLg />
         </button>
       </div>

@@ -47,6 +47,7 @@ export const GlobalProvider = ({ children }) => {
     <Globalcontext.Provider
       value={{
         data,
+        setData,
         isOpen,
         setIsOpen,
         editData,

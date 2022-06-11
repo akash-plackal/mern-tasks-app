@@ -1,10 +1,9 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import CreateTasksForm from "./CreateTasksForm";
 import { Globalcontext } from "../context/GlobalState";
 
 const AddItemModal = ({ section }) => {
-  
-  const { isOpen } = useContext(Globalcontext)
+  const { isOpen } = useContext(Globalcontext);
 
   return (
     <div>

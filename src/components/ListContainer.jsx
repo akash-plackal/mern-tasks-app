@@ -2,19 +2,29 @@ import React, { useContext } from "react";
 import { Globalcontext } from "../context/GlobalState";
 import { BiRadioCircle } from "react-icons/bi";
 import { BsCheckLg } from "react-icons/bs";
+import axios from "axios";
 
 const ListContainer = ({ section }) => {
   const { data, setIsOpen, handleEditTask } = useContext(Globalcontext);
 
   const filteredArr = data.filter((item) => item.section === section);
 
-  const taskClick = (id) => setIsOpen(true) & handleEditTask(id);
+  const taskClick = (id) => {
+    setIsOpen(true);
+    handleEditTask(id);
+  };
 
   const priorityColor = (priority) => {
     if (priority === "high") return "text-rose-400 bg-slate-50";
     if (priority === "medium") return "text-yellow-400 bg-slate-50";
     if (priority === "low") return "text-blue-400 bg-slate-50";
     else return "text-yellow-400 bg-slate-50";
+  };
+
+  const completedClick = (id, taskComplete) => {
+    axios.put(`http://localhost:3001/toggleCompleted/${id}`, {
+      completed: !taskComplete,
+    });
   };
 
   return (
@@ -25,9 +35,9 @@ const ListContainer = ({ section }) => {
           className={`border-2 border-t-0 h-auto flex ${
             item.completed ? " bg-green-50" : " "
           }`}
-          onClick={() => taskClick(item._id)}
         >
-          <div
+          <button
+            onClick={() => completedClick(item._id, item.completed)}
             className={`w-20 border-r-2 text-xl flex items-center justify-center 
           ${
             item.completed
@@ -40,8 +50,11 @@ const ListContainer = ({ section }) => {
             ) : (
               <BiRadioCircle className="text-3xl" />
             )}
-          </div>
-          <div className="p-8 flex items-center ">
+          </button>
+          <div
+            className="p-8 flex items-center "
+            onClick={() => taskClick(item._id)}
+          >
             <div className=" w-56 max-h-28 font-roboto line-clamp-4">
               <p className="text-xs text-stone-500">{item.topic}</p>
               <h3

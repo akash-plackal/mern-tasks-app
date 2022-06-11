@@ -4,7 +4,7 @@ import { Globalcontext } from "../context/GlobalState";
 import { AiOutlineDelete } from "react-icons/ai";
 
 const CreateTasksForm = ({ section }) => {
-  const { setEditData, setIsOpen, editData, value, setValue } =
+  const { setEditData, setData, data, setIsOpen, editData, value, setValue } =
     useContext(Globalcontext);
   const [errMsg, setErrMsg] = useState("");
 
@@ -46,8 +46,27 @@ const CreateTasksForm = ({ section }) => {
         } catch (error) {
           console.log(error);
         }
+
+        setData([
+          ...data,
+          {
+            _id: value.id || Date.now().toString(),
+            topic: value.topic,
+            priority: value.priority,
+            section: section,
+            completed: false,
+            content: value.content,
+          },
+        ]);
       }
     }
+  };
+
+  const fetchData = async () => {
+    const res = await axios.get(
+      "https://tasks-app-mern.herokuapp.com/getTasks"
+    );
+    setData(res.data);
   };
 
   const cancelHandle = () => {
@@ -58,12 +77,15 @@ const CreateTasksForm = ({ section }) => {
       priority: " ",
       content: "",
     });
+    fetchData();
   };
 
   const deleteHandler = (id) => {
     axios.delete(`https://tasks-app-mern.herokuapp.com/deleteTask/${id}`);
     setIsOpen(false);
     setEditData(false);
+
+    fetchData();
   };
 
   return (
@@ -131,7 +153,7 @@ const CreateTasksForm = ({ section }) => {
             onClick={() => cancelHandle()}
             className="py-2 px-5 border-2 border-lime-500  text-lime-500 rounded  mr-2"
           >
-            Cancel
+            Back
           </button>
           <button
             type="submit"
