@@ -115,8 +115,10 @@ const CreateTasksForm = ({ section }) => {
         <button
           type="button"
           onClick={() => deleteHandler(value.id)}
-          className={`py-2 px-1 text-3xl hover:text-rose-500 ${
-            editData ? "text-black" : "text-gray-200"
+          className={`py-2 px-1 text-3xl  ${
+            editData
+              ? "text-black hover:text-rose-500"
+              : "text-gray-200 hover:text-grey-200"
           }`}
           disabled={!editData}
         >

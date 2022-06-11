@@ -10,6 +10,13 @@ const ListContainer = ({ section }) => {
 
   const taskClick = (id) => setIsOpen(true) & handleEditTask(id);
 
+  const priorityColor = (priority) => {
+    if (priority === "high") return "text-rose-400 bg-slate-50";
+    if (priority === "medium") return "text-yellow-400 bg-slate-50";
+    if (priority === "low") return "text-blue-400 bg-slate-50";
+    else return "text-yellow-400 bg-slate-50";
+  };
+
   return (
     <div>
       {filteredArr.map((item, ind) => (
@@ -25,7 +32,7 @@ const ListContainer = ({ section }) => {
           ${
             item.completed
               ? "text-emerald-400 bg-green-50"
-              : "text-yellow-400 bg-gray-50"
+              : priorityColor(item.priority)
           }`}
           >
             {item.completed ? (
