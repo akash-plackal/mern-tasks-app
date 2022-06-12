@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Globalcontext } from "../../context/GlobalState";
 
 import { RiSettingsFill } from "react-icons/ri";
 import { BsFillSuitHeartFill } from "react-icons/bs";
@@ -8,14 +9,26 @@ import { FaUser } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 
 const Home = () => {
+  const { data } = useContext(Globalcontext);
+
+  const taskLength = (section) => {
+    const tasks = data && data.filter((task) => task.section === section);
+    return tasks.length || 0;
+  };
+
+  const inCompleteItems = () =>
+    data && data.filter((items) => items.completed === false);
+
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-slate-50">
       <header className="px-9 py-7 flex justify-between border-b-2 ">
         <div className="space-y-1 ">
           <h1 className="text-3xl font-bold capitalize text-stone-500">
             hello james
           </h1>
-          <p className="text-gray-400 text-sm">13 items not completed</p>
+          <p className="text-gray-400 text-sm">
+            {inCompleteItems().length} items not completed
+          </p>
         </div>
 
         <div className="p-3">
@@ -25,7 +38,7 @@ const Home = () => {
 
       {/* cards */}
 
-      <main className="bg-slate-50 h-2/3 pt-10">
+      <main className=" h-2/3 pt-10">
         <div className="flex justify-between px-6 h-60 ">
           <Link
             to="work"
@@ -39,7 +52,9 @@ const Home = () => {
               <h1 className="capitalize text-xl text-stone-500 font-bold">
                 work
               </h1>
-              <p className="text-gray-400 text-sm">3 tasks</p>
+              <p className="text-gray-400 text-sm">
+                {taskLength("work")} tasks
+              </p>
             </div>
           </Link>
           <Link
@@ -54,7 +69,9 @@ const Home = () => {
               <h1 className="capitalize text-xl text-stone-500 font-bold">
                 personal
               </h1>
-              <p className="text-gray-400 text-sm">3 tasks</p>
+              <p className="text-gray-400 text-sm">
+                {taskLength("personal")} tasks
+              </p>
             </div>
           </Link>
         </div>
@@ -71,7 +88,9 @@ const Home = () => {
               <h1 className="capitalize text-xl text-stone-500 font-bold">
                 life
               </h1>
-              <p className="text-gray-400 text-sm">3 tasks</p>
+              <p className="text-gray-400 text-sm">
+                {taskLength("life")} tasks
+              </p>
             </div>
           </Link>
           <Link
@@ -86,7 +105,9 @@ const Home = () => {
               <h1 className="capitalize text-xl text-stone-500 font-bold">
                 goals
               </h1>
-              <p className="text-gray-400 text-sm">3 tasks</p>
+              <p className="text-gray-400 text-sm">
+                {taskLength("goals")} tasks
+              </p>
             </div>
           </Link>
         </div>

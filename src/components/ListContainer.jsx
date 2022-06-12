@@ -22,7 +22,7 @@ const ListContainer = ({ section }) => {
   };
 
   const completedClick = (id, taskComplete) => {
-    axios.put(`http://localhost:3001/toggleCompleted/${id}`, {
+    axios.put(`https://tasks-app-mern.herokuapp.com/toggleCompleted/${id}`, {
       completed: !taskComplete,
     });
   };
