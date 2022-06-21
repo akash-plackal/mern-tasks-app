@@ -80,12 +80,13 @@ const CreateTasksForm = ({ section }) => {
     fetchData();
   };
 
-  const deleteHandler = (id) => {
-    axios.delete(`https://tasks-app-mern.herokuapp.com/deleteTask/${id}`);
+  const deleteHandler = (itemId) => {
+    const filteredArr = data.filter((item) => item._id !== itemId);
+    setData(filteredArr);
+
+    axios.delete(`https://tasks-app-mern.herokuapp.com/deleteTask/${itemId}`);
     setIsOpen(false);
     setEditData(false);
-
-    fetchData();
   };
 
   return (

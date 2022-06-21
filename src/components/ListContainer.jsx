@@ -5,7 +5,8 @@ import { BsCheckLg } from "react-icons/bs";
 import axios from "axios";
 
 const ListContainer = ({ section }) => {
-  const { data, setIsOpen, handleEditTask } = useContext(Globalcontext);
+  const { data, setIsOpen, handleEditTask, setData } =
+    useContext(Globalcontext);
 
   const filteredArr = data.filter((item) => item.section === section);
 
@@ -21,10 +22,21 @@ const ListContainer = ({ section }) => {
     else return "text-yellow-400 bg-slate-50";
   };
 
-  const completedClick = (id, taskComplete) => {
-    axios.put(`https://tasks-app-mern.herokuapp.com/toggleCompleted/${id}`, {
-      completed: !taskComplete,
+  const completedClick = (itemId, taskComplete) => {
+    const mapedArr = data.map((obj) => {
+      if (obj._id === itemId) {
+        return { ...obj, completed: !taskComplete };
+      }
+      return obj;
     });
+
+    setData(mapedArr);
+    axios.put(
+      `https://tasks-app-mern.herokuapp.com/toggleCompleted/${itemId}`,
+      {
+        completed: !taskComplete,
+      }
+    );
   };
 
   return (
