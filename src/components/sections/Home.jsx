@@ -12,12 +12,12 @@ const Home = () => {
   const { data } = useContext(Globalcontext);
 
   const taskLength = (section) => {
-    const tasks = data && data.filter((task) => task.section === section);
+    const tasks = data?.filter((task) => task.section === section);
     return tasks.length || 0;
   };
 
   const inCompleteItems = () =>
-    data && data.filter((items) => items.completed === false);
+    data?.filter((items) => items.completed === false);
 
   return (
     <div className="h-screen bg-slate-50">
@@ -38,11 +38,11 @@ const Home = () => {
 
       {/* cards */}
 
-      <main className=" h-2/3 pt-10">
-        <div className="flex justify-between px-6 h-60 ">
+      <main className=" h-2/3 pt-10 lg:px-40 lg:h-11/12">
+        <div className="flex justify-between px-6 h-60 lg:px-40 ">
           <Link
             to="work"
-            className="rounded-lg my-4 border-2 w-40   bg-white flex items-center  flex-col justify-evenly "
+            className="rounded-lg my-4 border-2 w-40 lg:w-64 bg-white flex items-center  flex-col justify-evenly "
           >
             <div className="rounded-full p-4 bg-purple-100">
               <IoMdBriefcase className="text-purple-400 text-lg" />
@@ -59,7 +59,7 @@ const Home = () => {
           </Link>
           <Link
             to="personal"
-            className="rounded-lg my-4 border-2 w-40 bg-white flex items-center  flex-col  justify-evenly "
+            className="rounded-lg my-4 border-2 w-40  lg:w-64  bg-white flex items-center  flex-col  justify-evenly "
           >
             <div className="rounded-full p-4 bg-blue-100 ">
               <FaUser className="text-blue-400 text-lg" />
@@ -75,10 +75,10 @@ const Home = () => {
             </div>
           </Link>
         </div>
-        <div className="flex justify-between px-6 h-60">
+        <div className="flex justify-between px-6 h-60 lg:px-40">
           <Link
             to="life"
-            className="rounded-lg my-4 border-2 w-40   bg-white flex items-center  flex-col justify-evenly "
+            className="rounded-lg my-4 border-2 w-40 lg:w-64    bg-white flex items-center  flex-col justify-evenly "
           >
             <div className="rounded-full p-4 bg-pink-100">
               <BsFillSuitHeartFill className="text-red-400 text-lg" />
@@ -95,7 +95,7 @@ const Home = () => {
           </Link>
           <Link
             to="goals"
-            className="rounded-lg my-4 border-2 w-40 bg-white flex items-center  flex-col  justify-evenly "
+            className="rounded-lg my-4 border-2 w-40 lg:w-64  bg-white flex items-center  flex-col  justify-evenly "
           >
             <div className="rounded-full p-4 bg-yellow-100 ">
               <MdLocationOn className="text-yellow-400 text-xl" />
